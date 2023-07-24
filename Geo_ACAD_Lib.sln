@@ -5,8 +5,6 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geo_ACAD_2016", "Geo_ACAD_2016\Geo_ACAD_2016.csproj", "{57E932D1-33B5-42DC-A04F-CE82DE514DC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geo_ACAD_2022", "Geo_ACAD_2022\Geo_ACAD_2022.csproj", "{B688617F-1116-4E11-9096-6B051AAFB8F9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{57E932D1-33B5-42DC-A04F-CE82DE514DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57E932D1-33B5-42DC-A04F-CE82DE514DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57E932D1-33B5-42DC-A04F-CE82DE514DC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B688617F-1116-4E11-9096-6B051AAFB8F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B688617F-1116-4E11-9096-6B051AAFB8F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B688617F-1116-4E11-9096-6B051AAFB8F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B688617F-1116-4E11-9096-6B051AAFB8F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
