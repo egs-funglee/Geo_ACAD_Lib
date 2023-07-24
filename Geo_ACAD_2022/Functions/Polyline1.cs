@@ -43,8 +43,6 @@ namespace Geo_AC2022
             int z_erasecount = 0;
             bool zero_length_detected = false;
 
-            Point2d pt2d_zero = new Point2d(0, 0);
-
             ed.WriteMessage("\nThis function is to Erase Zero Length Polylines and Fix Closed Polylines (by appending 1st Vertex and the end).\n");
 
             using (var tr = db.TransactionManager.StartTransaction())
@@ -97,13 +95,13 @@ namespace Geo_AC2022
                         }
                     }
 
-                    Point2d pt2do = acPoly.GetPoint2dAt(0); //1st vertex, 0-based
-                    int v = 1;
+                    Point2d pt2do = new Point2d(99999.9999, 99999.9999); //dummy
+                    int v = 0;
                     int vm = acPoly.NumberOfVertices;
                     while (v < vm)
                     {
                         Point2d pt2d = acPoly.GetPoint2dAt(v);
-                        if (pt2d.Equals(pt2d_zero) || pt2d.Equals(pt2do) || double.IsNaN(pt2d.X) || double.IsNaN(pt2d.Y))
+                        if (pt2d.Equals(pt2do) || double.IsNaN(pt2d.X) || double.IsNaN(pt2d.Y))
                         {
                             empty_vertex_detected = true;
                             rm_count++;
