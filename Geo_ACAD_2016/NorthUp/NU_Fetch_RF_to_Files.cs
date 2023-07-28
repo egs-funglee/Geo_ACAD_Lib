@@ -34,7 +34,7 @@ namespace Geo_AC2016
             acTypValAr.SetValue(new TypedValue((int)DxfCode.LayerName, "Annotation"), 1);
             acSelFtr = new SelectionFilter(acTypValAr);
             psrA = ed.SelectAll(acSelFtr);
-            if (psrA.Status != PromptStatus.OK) return;
+            //if (psrA.Status != PromptStatus.OK) return;
 
             List<RF> lRF = new List<RF>();//RecNo
             List<RF> lRF_ZTxd = new List<RF>();
