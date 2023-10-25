@@ -7,10 +7,12 @@ namespace Geo_AC2016
     {
         internal static double GetGridKP(double x, double y, ref List<RPL> lRPL)
         {
-            bool found, found_up, found_dn = false;
             double[] aco = new double[lRPL.Count];
-            double ipx = 0, ipy = 0, ipx_up, ipy_up, ipx_dn = 0, ipy_dn = 0, minACO = -1;
-            int minACOi = 0, row_up, row_dn, i, ub = lRPL.Count - 1;
+            double[] ipx = new double[lRPL.Count];
+            double[] ipy = new double[lRPL.Count];
+            double[] ro = new double[lRPL.Count];
+            double gridx, minACO = -1, minRO = -1;
+            int i, minACOi = 0, minROi = 0, ub = lRPL.Count - 1;
 
             //Calc HD between the point and each points on RPL
             //Parallel.ForEach(lRPL, (iRPL, state, index) => { aco[index] = HD(x, y, iRPL.E, iRPL.N); });
@@ -18,89 +20,44 @@ namespace Geo_AC2016
             for (i = 0; i < lRPL.Count; i++) //Loop for the smallest HD
             {
                 aco[i] = HD(x, y, lRPL[i].E, lRPL[i].N);
-                if (aco[i] < minACO || minACO < 0)
+                if (aco[i] < minACO || minACO < 0) //find the shortest distance to each AC
                 {
                     minACO = aco[i];
                     minACOi = i; //index of the smallest HD
                 }
-            }
-
-            if (minACOi == 0)//set searching start row
-            {
-                row_up = 1;
-                row_dn = ub + 1; //check first segment only, skipping the if check below
-            }
-            else
-            {
-                row_up = minACOi;
-                row_dn = minACOi + 1;
-            }
-
-            ipx_up = IPX(x, y, lRPL[row_up]);
-            ipy_up = IPY(x, y, lRPL[row_up]);
-            found_up = CheckPoint(ref lRPL, row_up, ipx_up, ipy_up);
-            if (row_dn <= ub)
-            {
-                ipx_dn = IPX(x, y, lRPL[row_dn]);
-                ipy_dn = IPY(x, y, lRPL[row_dn]);
-                found_dn = CheckPoint(ref lRPL, row_dn, ipx_dn, ipy_dn);
-            }
-
-            if (!found_up && !found_dn)
-            {
-                found = false;//out of AC
-            }
-            else if (found_up && found_dn)
-            {
-                double ro_up = HD(ipx_up, ipy_up, x, y);//roffset
-                double ro_dn = HD(ipx_dn, ipy_dn, x, y);//roffset
-                if (ro_dn > ro_up)
+                if (i > 0) //calc RO from 2nd pairs
                 {
-                    i = row_up; ipx = ipx_up; ipy = ipy_up;
-                    found = true;
-                }
-                else
-                {
-                    i = row_dn; ipx = ipx_dn; ipy = ipy_dn;
-                    found = true;
+                    ipx[i] = IPX(x, y, lRPL[i]);
+                    ipy[i] = IPY(x, y, lRPL[i]);
+                    if (CheckPoint(ref lRPL, i, ipx[i], ipy[i])) //Check if the intersect is on the segment
+                    {
+                        ro[i] = HD(x, y, ipx[i], ipy[i]); //Calc distance / route offset between P and IP
+                        if (aco[i] < minACO || minACO < 0) //located the shortest pair
+                        {
+                            minRO = ro[i];
+                            minROi = i; //min 1
+                        }
+                    }
                 }
             }
-            else if (found_up) //and not found_dn
-            {
-                i = row_up; ipx = ipx_up; ipy = ipy_up;
-                found = true;
-            }
-            else//if found_dn and not found_up
-            {
-                i = row_dn; ipx = ipx_dn; ipy = ipy_dn;
-                found = true;
-            }
 
-            double gridx;
+            if (minACOi == 0 && !CheckPoint(ref lRPL, 1, ipx[1], ipy[1])) //HEAD out of first RPL point use 2nd IP
+            {
+                gridx = 0 - HD(ipx[i], ipy[i], lRPL[0].E, lRPL[0].N);
+            }
+            else if (minACOi == ub && !CheckPoint(ref lRPL, 1, ipx[1], ipy[1])) //TAIL out of last RPL point
+            {
+                gridx = HD(ipx[ub], ipy[ub], lRPL[ub].E, lRPL[ub].N) + lRPL[ub].segch;
+            }
+            else if (minROi > 0 && minACO > minRO) //with RO and < ACO
+            {
+                gridx = HD(ipx[minROi], ipy[minROi], lRPL[minROi - 1].E, lRPL[minROi - 1].N) + lRPL[minROi - 1].segch;
+            }
+            else //out of AC return chainage to AC
+            {
+                gridx = lRPL[minACOi].segch;
+            };
 
-            if (found)
-            {
-                gridx = HD(ipx, ipy, lRPL[i - 1].E, lRPL[i - 1].N) + lRPL[i - 1].segch;
-            }
-            else
-            {
-                if (minACOi == 0) //out first RPL pt
-                {
-                    ipx = IPX(x, y, lRPL[1]);
-                    ipy = IPY(x, y, lRPL[1]);
-                    gridx = 0 - HD(ipx, ipy, lRPL[0].E, lRPL[0].N);
-                }
-                else if (minACOi == ub) //out last RPL pt
-                {
-                    ipx = IPX(x, y, lRPL[ub]);
-                    ipy = IPY(x, y, lRPL[ub]);
-                    gridx = HD(ipx, ipy, lRPL[ub].E, lRPL[ub].N) + lRPL[ub].segch;
-                }
-                else //out of AC ankle, return the gridx of AC
-                {
-                    gridx = lRPL[minACOi].segch;
-                }
-            }
             return gridx;
         }
 
@@ -147,7 +104,7 @@ namespace Geo_AC2016
 
         private static bool CheckPoint(ref List<RPL> lRPL, int j, double px, double py)
         {
-            bool is_on_seg = true;
+            bool is_on_seg = true; //Ax+By+C=0 => when B=0, Ax+C=0, Vertical, Check X only
             if (lRPL[j].B != 0) //dX=0 vertical, just check X
             {
                 if ((px > lRPL[j - 1].E) && (px > lRPL[j].E)) is_on_seg = false;
