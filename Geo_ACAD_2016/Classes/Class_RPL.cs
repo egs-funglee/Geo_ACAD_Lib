@@ -29,7 +29,6 @@ namespace Geo_AC2016
                 {
                     ipx[i] = IPX(x, y, lRPL[i]);
                     ipy[i] = IPY(x, y, lRPL[i]);
-                    bool a = CheckPoint(ref lRPL, i, ipx[i], ipy[i]);
                     if (CheckPoint(ref lRPL, i, ipx[i], ipy[i])) //Check if the intersect is on the segment
                     {
                         ro[i] = HD(x, y, ipx[i], ipy[i]); //Calc distance / route offset between P and IP
