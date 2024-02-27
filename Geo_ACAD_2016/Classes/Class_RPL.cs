@@ -23,29 +23,30 @@ namespace Geo_AC2016
                 if (aco[i] < minACO || minACO < 0) //find the shortest distance to each AC
                 {
                     minACO = aco[i];
-                    minACOi = i; //index of the smallest HD
+                    minACOi = i; //min 0, index of the smallest HD to AC
                 }
                 if (i > 0) //calc RO from 2nd pairs
                 {
                     ipx[i] = IPX(x, y, lRPL[i]);
                     ipy[i] = IPY(x, y, lRPL[i]);
+                    bool a = CheckPoint(ref lRPL, i, ipx[i], ipy[i]);
                     if (CheckPoint(ref lRPL, i, ipx[i], ipy[i])) //Check if the intersect is on the segment
                     {
                         ro[i] = HD(x, y, ipx[i], ipy[i]); //Calc distance / route offset between P and IP
-                        if (aco[i] < minACO || minACO < 0) //located the shortest pair
+                        if (minRO < 0 || ro[i] < minRO) //located the shortest pair
                         {
                             minRO = ro[i];
-                            minROi = i; //min 1
+                            minROi = i; //min 1, index of the smallest RO
                         }
                     }
                 }
             }
 
-            if (minACOi == 0 && !CheckPoint(ref lRPL, 1, ipx[1], ipy[1])) //HEAD out of first RPL point use 2nd IP
+            if (minACOi == 0 && CheckPoint(ref lRPL, 1, ipx[1], ipy[1]) == false) //HEAD out of first RPL point use 2nd IP
             {
-                gridx = 0 - HD(ipx[i], ipy[i], lRPL[0].E, lRPL[0].N);
+                gridx = 0 - HD(ipx[1], ipy[1], lRPL[0].E, lRPL[0].N);
             }
-            else if (minACOi == ub && !CheckPoint(ref lRPL, 1, ipx[1], ipy[1])) //TAIL out of last RPL point
+            else if (minACOi == ub && CheckPoint(ref lRPL, ub, ipx[ub], ipy[ub]) == false) //TAIL out of last RPL point
             {
                 gridx = HD(ipx[ub], ipy[ub], lRPL[ub].E, lRPL[ub].N) + lRPL[ub].segch;
             }
