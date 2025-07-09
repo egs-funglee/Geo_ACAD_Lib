@@ -18,7 +18,7 @@ namespace Geo_AC2016
                     {
                         SeabedSN = (iXYZZ.ZTxd - iXYZZ.ZSb) * 2 / vel_water * sample_rate;
                         RefSN = SeabedSN + iXYZZ.ZSb * 2 / vel_sedi * sample_rate;
-                        recout.Add(String.Format("RecNo{0,9:0} RefSampleNo{1,7:0} SeabedSampleNo{2,7:0} Pos{3,13:0.000} E{4,13:0.000} N ZTxd{5,7:0.00} ZSb{6,7:0.00}",
+                        recout.Add(String.Format("RecNo {0,8:0} RefSampleNo {1,6:0} SeabedSampleNo {2,6:0} Pos {3,12:0.000} E {4,12:0.000} N ZTxd {5,6:0.00} ZSb {6,6:0.00}",
                             iXYZZ.Rec, RefSN, SeabedSN,
                             iXYZZ.X, iXYZZ.Y, iXYZZ.ZTxd, iXYZZ.ZSb));
                     }
@@ -28,7 +28,7 @@ namespace Geo_AC2016
                     recout.Add("ANNOTATION RECORD");
                     SeabedSN = (iRF.xyzz[0].ZTxd - iRF.xyzz[0].ZSb) * 2 / vel_water * sample_rate;
                     RefSN = SeabedSN + iRF.xyzz[0].ZSb * 2 / vel_sedi * sample_rate;
-                    recout.Add(String.Format("RecNo{0,9:0} RefSampleNo{1,7:0} SeabedSampleNo{2,7:0} Pos{3,13:0.000} E{4,13:0.000} N ZTxd{5,7:0.00} ZSb{6,7:0.00} Annotation{7,41}",
+                    recout.Add(String.Format("RecNo {0,8:0} RefSampleNo {1,6:0} SeabedSampleNo {2,6:0} Pos {3,12:0.000} E {4,12:0.000} N ZTxd {5,6:0.00} ZSb {6,6:0.00} Annotation {7,40}",
                         iRF.xyzz[0].Rec, RefSN, SeabedSN,
                         iRF.xyzz[0].X, iRF.xyzz[0].Y, iRF.xyzz[0].ZTxd, iRF.xyzz[0].ZSb, iRF.annotation));
                     break;
