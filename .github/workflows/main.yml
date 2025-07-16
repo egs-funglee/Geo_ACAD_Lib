@@ -1,14 +1,14 @@
 name: Workflow
 on:
-  pull_request:
-    paths-ignore:
-      - '**.md'
-  push:
-    branches:
-      - master
-      - releases/*
-    paths-ignore:
-      - '**.md'
+#  pull_request:
+#    paths-ignore:
+#      - '**.md'
+#  push:
+#    branches:
+#      - master
+#      - releases/*
+#    paths-ignore:
+#      - '**.md'
   workflow_dispatch:
 
 jobs:
@@ -33,6 +33,6 @@ jobs:
     - name: Upload Artifact v4
       uses: actions/upload-artifact@v4
       with:
-        name: build-result
+        name: Geo_AC2016
         path: D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
         overwrite: true
