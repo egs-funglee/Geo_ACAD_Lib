@@ -14,6 +14,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write 
 
     steps:
     - uses: actions/checkout@v4
@@ -36,3 +38,9 @@ jobs:
         name: Geo_AC2016
         path: D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
         overwrite: true
+
+    - name: Upload Release Asset
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run:
+        gh release upload workflow D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
