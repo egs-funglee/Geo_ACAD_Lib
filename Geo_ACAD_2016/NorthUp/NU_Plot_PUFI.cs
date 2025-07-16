@@ -442,8 +442,7 @@ namespace Geo_AC2016
                 }
                 finally
                 {
-                    if ((myStream != null))
-                        myStream.Close();
+                    myStream?.Close();
                 }
             }
 
