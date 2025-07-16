@@ -35,20 +35,17 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AcCoreMgd">
+    <Reference Include="AcCoreMgd, Version=20.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\..\..\ObjectARX 2016\inc\AcCoreMgd.dll</HintPath>
+      <HintPath>..\ACAD_ObjectARX2016_inc\AcCoreMgd.dll</HintPath>
     </Reference>
-    <Reference Include="AcDbMgd">
+    <Reference Include="AcDbMgd, Version=20.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\..\..\ObjectARX 2016\inc\AcDbMgd.dll</HintPath>
+      <HintPath>..\ACAD_ObjectARX2016_inc\AcDbMgd.dll</HintPath>
     </Reference>
-    <Reference Include="AcMgd">
+    <Reference Include="AcMgd, Version=20.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\..\..\ObjectARX 2016\inc\AcMgd.dll</HintPath>
+      <HintPath>..\ACAD_ObjectARX2016_inc\AcMgd.dll</HintPath>
     </Reference>
     <Reference Include="BitMiracle.LibTiff.NET, Version=2.4.660.0, Culture=neutral, PublicKeyToken=53879b3e20e7a7d6, processorArchitecture=MSIL">
       <HintPath>..\packages\BitMiracle.LibTiff.NET.2.4.660\lib\netstandard2.0\BitMiracle.LibTiff.NET.dll</HintPath>
@@ -109,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\ACAD_ObjectARX2016_inc\AcDbMgd.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.9.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.9.2\build\Fody.targets')" />
