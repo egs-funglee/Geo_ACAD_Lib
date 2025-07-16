@@ -32,15 +32,15 @@ jobs:
     - name: Build solution
       run: msbuild Geo_ACAD_Lib.sln -t:rebuild -property:Configuration=Release
       
-    - name: Upload Artifact v4
-      uses: actions/upload-artifact@v4
-      with:
-        name: Geo_AC2016
-        path: D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
-        overwrite: true
+#    - name: Upload Artifact v4
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: Geo_AC2016
+#        path: D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
+#        overwrite: true
 
     - name: Upload Release Asset
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
-        gh release upload workflow D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
+        gh release create workflow D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
