@@ -43,4 +43,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:
-        gh release create workflow D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
+        gh release delete workflow --yes --cleanup-tag
+        gh release create workflow --latest --notes "Created by Actions Workflow"
+        gh release upload workflow D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
