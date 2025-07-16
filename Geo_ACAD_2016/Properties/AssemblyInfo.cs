@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("EGS (Asia) Ltd.")]
 [assembly: AssemblyProduct("EGS Geo Processing Tools")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("EGS Group")]
 [assembly: AssemblyCulture("")]
 
