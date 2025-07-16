@@ -38,14 +38,17 @@
     <Reference Include="AcCoreMgd, Version=20.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ACAD_ObjectARX2016_inc\AcCoreMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AcDbMgd, Version=20.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ACAD_ObjectARX2016_inc\AcDbMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AcMgd, Version=20.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ACAD_ObjectARX2016_inc\AcMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BitMiracle.LibTiff.NET, Version=2.4.660.0, Culture=neutral, PublicKeyToken=53879b3e20e7a7d6, processorArchitecture=MSIL">
       <HintPath>..\packages\BitMiracle.LibTiff.NET.2.4.660\lib\netstandard2.0\BitMiracle.LibTiff.NET.dll</HintPath>
