@@ -12,6 +12,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        Set-Variable -Name "tag" -Value v(Get-Date).ToString('yyyyMMdd')
+        Set-Variable -Name "tag" -Value (Get-Date).ToString('vyyyyMMdd')
         gh release delete $tag --yes --cleanup-tag
         gh release create $tag --latest --notes "Created by Actions Workflow"
