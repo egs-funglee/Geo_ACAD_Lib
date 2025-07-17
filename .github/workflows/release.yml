@@ -1,5 +1,14 @@
 name: Manual Release
 on:
+#  pull_request:
+#    paths-ignore:
+#      - '**.md'
+#  push:
+#    branches:
+#      - master
+#      - releases/*
+#    paths-ignore:
+#      - '**.md'
   workflow_dispatch:
 jobs:
   build:
@@ -8,6 +17,26 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      
+    - name: Restore NuGet Packages
+      run: nuget restore Geo_ACAD_Lib.sln
+      
+    - name: Build solution
+      run: msbuild Geo_ACAD_Lib.sln -t:rebuild -property:Configuration=Release
+      
+#    - name: Upload Artifact v4
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: Geo_AC2016
+#        path: D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
+#        overwrite: true
+
     - name: Create and Upload Release Asset
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -15,3 +44,5 @@ jobs:
         Set-Variable -Name "tag" -Value (Get-Date).ToString('vyyyyMMdd')
         gh release delete $tag --yes --cleanup-tag
         gh release create $tag --latest --notes "Created by Actions Workflow"
+        gh release upload $tag D:\a\Geo_ACAD_Lib\Geo_ACAD_Lib\Geo_ACAD_2016\bin\Release\Geo_AC2016.dll
+        
