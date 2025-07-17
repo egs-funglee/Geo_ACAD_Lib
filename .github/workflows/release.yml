@@ -12,7 +12,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        FOR /f %a IN ('WMIC OS GET LocalDateTime ^| FIND "."') DO SET DTS=%a
-        SET tag=v%DTS:~0,8%
-        gh release delete %tag% --yes --cleanup-tag
-        gh release create %tag% --latest --notes "Created by Actions Workflow"
+        Set-Variable -Name "tag" -Value v(Get-Date).ToString('yyyyMMdd')
+        gh release delete $tag --yes --cleanup-tag
+        gh release create $tag --latest --notes "Created by Actions Workflow"
