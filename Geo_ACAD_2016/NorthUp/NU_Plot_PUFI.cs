@@ -12,7 +12,7 @@ namespace Geo_AC2016
 {
 	internal class NU_Plot_PUFI
 	{
-		private static double acad_textheight;
+		private static double acad_textheight = 10;
 		private static bool bool_plottrack, bool_plotlinename, bool_ploteachfix, bool_seperatelayer, bool_recalc_cmg, bool_fliplinename, bool_plotcircle, bool_mergefiles;
 		private static int eachfix, ffilterindex;
 
@@ -21,12 +21,6 @@ namespace Geo_AC2016
 			Document doc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
 			Editor ed = doc.Editor;
 			Database db = doc.Database;
-
-			//set font height
-			IniParser.Model.IniData ini = Read_ini();
-			string str_pKeyRes = ini["Parameters"]["Text Height"];
-			if (string.IsNullOrEmpty(str_pKeyRes)) str_pKeyRes = "20";
-			acad_textheight = double.Parse(str_pKeyRes);
 
 			if (Prompt_Input() == false) return;
 			ed.WriteMessage("\n\n");
@@ -475,8 +469,12 @@ namespace Geo_AC2016
 			bool_recalc_cmg = true;
 			bool_fliplinename = true;
 			bool_plotcircle = true;
-			acad_textheight = 10;
 			eachfix = 1;
+
+			//set font height from ini
+			str_pKeyRes = ini["Parameters"]["Text Height"];
+			if (string.IsNullOrEmpty(str_pKeyRes)) str_pKeyRes = "20";
+			acad_textheight = double.Parse(str_pKeyRes);
 
 			Document doc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
 			Editor ed = doc.Editor;
