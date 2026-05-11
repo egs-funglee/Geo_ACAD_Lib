@@ -108,15 +108,21 @@ namespace Geo_AC2016
                                 {
                                     fix = -1,
                                     dist = 0,
-                                    e = xpt.X, //1st point only
-                                    n = xpt.Y,
+                                    e = Math.Round(xpt.X, 4), // Rounds to 4 decimal places, 1st point only
+											   n = Math.Round(xpt.Y, 4),
                                     linename = tpoly.Hyperlinks[0].Name
                                 };
                                 xFENLN_List.Add(tFENLN);
                             }
                     }
                 }
-                if (xFENLN_List.Count == 0)
+				// Removes duplicates if they have the same E and N values
+				xFENLN_List = xFENLN_List
+					 .GroupBy(x => new { x.e, x.n })
+					 .Select(g => g.First())
+					 .ToList();
+
+				if (xFENLN_List.Count == 0)
                 {
                     ed.WriteMessage("\nNo intersects.\n");
                     return;
